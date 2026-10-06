@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16211E">
+<title>HealthTech Challenge – prototipos</title>
+<meta name="description" content="Tres prototipos interactivos para los retos del Innovation Challenge de Xartec Salut (HealthTech2030).">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230F6B5C'/%3E%3Cpath d='M16 8v16M8 16h16' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===================== NAVEGACIÓN PRINCIPAL ===================== -->
+<nav class="top" aria-label="Secciones">
+  <div class="top-in" role="tablist">
+    <button role="tab" aria-selected="true" data-v="vHome">Inicio</button>
+    <button role="tab" aria-selected="false" data-v="vB">EPOC · IDIAP</button>
+    <button role="tab" aria-selected="false" data-v="vA">Hidradenitis · Almirall</button>
+    <button role="tab" aria-selected="false" data-v="vC">Cáncer infantil · AFANOC</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ===================================================================== -->
+<!-- ============================ INICIO ================================= -->
+<!-- ===================================================================== -->
+<section class="view on" id="vHome">
+  <div class="hero">
+    <div class="small" style="color:#B8C4BF">Innovation Challenge · Xartec Salut · HealthTech2030</div>
+    <h1>Tres ideas para tres retos de salud</h1>
+    <p>Prototipos para enseñar la idea, no productos terminados. Todo funciona en el navegador, en ordenador y en móvil, y no se guarda ni se envía ningún dato. Los datos que ves son inventados.</p>
+  </div>
+
+  <h2 style="margin-top:24px">Elige un reto</h2>
+  <div class="grid cards3">
+    <div class="card rcard reco">
+      <span class="tag">IDIAP Jordi Gol · Early Detection</span>
+      <b>Exacerbaciones de la EPOC</b>
+      <div style="font-size:14px">Detectar antes las crisis bacterianas combinando síntomas, saturación, tos grabada con el móvil y foto del esputo. El CAP recibe un aviso y confirma con una PCR capilar.</div>
+      <span class="badge" style="background:var(--brand-soft);color:#0A4D42;align-self:flex-start">Opción recomendada</span>
+      <button class="go" data-goto="vB">Probar</button>
+    </div>
+    <div class="card rcard">
+      <span class="tag">Almirall · Decoding Disease</span>
+      <b>Hidradenitis supurativa</b>
+      <div style="font-size:14px">Registrar las lesiones y los brotes entre visitas: el dermatólogo ve la evolución real y un modelo agrupa pacientes y estima el riesgo de brote.</div>
+      <button class="go" data-goto="vA">Probar</button>
+    </div>
+    <div class="card rcard">
+      <span class="tag">AFANOC · Care Journey</span>
+      <b>Cáncer infantil</b>
+      <div style="font-size:14px">Una app para que el niño o adolescente lleve su día y la familia reparta tareas y llegue a la visita con un resumen hecho.</div>
+      <button class="go" data-goto="vC">Probar</button>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px">Cómo probarlo</h2>
+  <div class="card steps">
+    <div>Entra en un reto desde el menú de arriba.</div>
+    <div>Cambia valores: síntomas, lesiones, fotos, tareas…</div>
+    <div>Mira cómo se actualiza al momento la vista del profesional.</div>
+    <div>Dime qué te parece útil y qué no.</div>
+  </div>
+
+  <div class="note-box" style="margin-top:16px">
+    <b>Importante.</b> Ninguna de estas pantallas es un producto sanitario ni da diagnósticos. Las reglas y los modelos son simplificaciones para explicar la idea.
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- ======================== RETO B · EPOC ============================== -->
+<!-- ===================================================================== -->
+<section class="view" id="vB">
+  <header class="h">
+    <div>
+      <div class="sub">Reto Early Detection · IDIAP Jordi Gol</div>
+      <h1>EPOC Alerta</h1>
+    </div>
+    <span class="badge">Prototipo · datos inventados</span>
+  </header>
+  <p class="flow">El paciente hace un control de 1 minuto al día. La app combina varias señales, porque el color del esputo solo no basta, y si hay sospecha de exacerbación avisa al centro de salud, que lo confirma con una PCR capilar.</p>
+
+  <div class="phone-area">
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="ph-head">
+          <div>
+            <div class="small">Control diario</div>
+            <div style="font-size:21px;font-weight:700">¿Cómo respiras hoy?</div>
+          </div>
+          <div class="score">
+            <div class="small" style="text-transform:uppercase;letter-spacing:.06em">Nivel</div>
+            <div class="v" id="bLvl">—</div>
+            <div id="bLvlLbl" style="font-size:12px;font-weight:600"></div>
+          </div>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:8px">
+          <div class="t" style="margin:0">1 · Síntomas comparados con lo habitual</div>
+          <div class="chips" id="bSym"></div>
+          <label for="bSpo2" style="display:flex;justify-content:space-between;font-weight:600;margin-top:6px">Saturación (pulsioxímetro) <span class="mono" id="bSpo2V"></span></label>
+          <input id="bSpo2" type="range" min="85" max="100" value="94">
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:10px">
+          <div class="t" style="margin:0">2 · Tos: graba 15 segundos</div>
+          <canvas id="coughWave" width="600" height="60" aria-label="Energía del sonido"></canvas>
+          <div class="rec" id="bRecRow" style="display:none"><span class="recdot"></span><span id="bRecT">Grabando…</span></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn pri" id="bRec" style="flex:1">Grabar tos</button>
+            <button class="btn sec" id="bRecSim" style="flex:1">Simular</button>
+          </div>
+          <div id="bCoughRes" style="font-size:14px"></div>
+          <div class="small">Cuenta golpes de sonido fuertes y cortos. El audio no sale del móvil.</div>
+        </div>
+
+        <div class="card" style="display:flex;flex-direction:column;gap:10px">
+          <div class="t" style="margin:0">3 · Foto del esputo</div>
+          <label for="bFile" class="btn sec" style="display:flex;align-items:center;justify-content:center;cursor:pointer">Hacer foto o subir imagen</label>
+          <input type="file" id="bFile" accept="image/*" capture="environment" style="position:absolute;width:1px;height:1px;opacity:0">
+          <canvas id="bCanvas" width="320" height="180" style="display:none;width:100%;border-radius:10px"></canvas>
+          <div class="small">O elige el color que más se parezca:</div>
+          <div class="swatches" id="bSwatches"></div>
+          <div class="small">Con la tarjeta de colores al lado se corrige la luz de la foto.</div>
+        </div>
+
+        <div class="card"><div id="bMsg" style="font-weight:600;font-size:15px"></div></div>
+        <button class="btn pri" id="bSave">Enviar control</button>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="card">
+        <div class="t">Señales de hoy</div>
+        <div class="signals" id="bSignals"></div>
+        <div class="small" style="margin-top:8px" id="bAnth"></div>
+      </div>
+      <div class="card">
+        <div class="t">Últimos 14 días</div>
+        <svg id="bChart" viewBox="0 0 560 190" style="width:100%;height:auto" role="img" aria-label="Evolución del nivel de alerta"></svg>
+      </div>
+      <div class="card">
+        <div class="t">Panel del centro de salud</div>
+        <div id="bAlert" style="padding-bottom:12px;border-bottom:1px solid var(--line)"></div>
+        <label for="bPcr" style="display:flex;justify-content:space-between;font-weight:600;margin-top:12px;font-size:14px">PCR capilar en consulta <span class="mono" id="bPcrV"></span></label>
+        <input id="bPcr" type="range" min="0" max="120" value="45">
+        <div id="bRec2" style="font-weight:600;font-size:14px;margin-top:6px"></div>
+        <div class="small" style="margin-top:6px">Prueba rápida (resultado en minutos). Orientación con los umbrales de 20 y 40 mg/L.</div>
+      </div>
+      <div class="note-box">
+        <b>Por qué no solo el color.</b> En el ensayo Colour-COPD (Reino Unido), quienes usaron una carta de colores del esputo tomaron más antibióticos, no menos. Por eso aquí el color es una señal más y quien decide es el profesional con la PCR.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- ==================== RETO A · HIDRADENITIS ========================== -->
+<!-- ===================================================================== -->
+<section class="view" id="vA">
+  <header class="h">
+    <div>
+      <div class="sub">Reto Decoding Disease · Almirall</div>
+      <h1>HS Tracker</h1>
+    </div>
+    <span class="badge">Prototipo · datos inventados</span>
+  </header>
+  <p class="flow">Lo que la paciente registra en la app aparece en el panel del dermatólogo y recalcula el riesgo de brote. Cambia lesiones o dolor, guarda, y mira las otras pestañas.</p>
+
+  <div class="tabs" role="tablist" aria-label="Pantallas de hidradenitis">
+    <button role="tab" aria-selected="true" data-tab="a1">1 · App paciente</button>
+    <button role="tab" aria-selected="false" data-tab="a2">2 · Dermatólogo</button>
+    <button role="tab" aria-selected="false" data-tab="a3">3 · Capa de IA</button>
+  </div>
+
+  <div class="panel on" id="a1">
+    <div class="phone-area">
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="ph-head">
+            <div>
+              <div class="small" id="aToday"></div>
+              <div style="font-size:21px;font-weight:700">Registro de hoy</div>
+            </div>
+            <div class="score">
+              <div class="small" style="text-transform:uppercase;letter-spacing:.06em">IHS4</div>
+              <div class="v" id="aIhs4">0</div>
+              <div id="aSev" style="font-size:12px;font-weight:600"></div>
+            </div>
+          </div>
+
+          <div class="card map">
+            <svg width="130" height="210" viewBox="0 0 130 210" aria-label="Mapa corporal: elige una zona">
+              <circle cx="65" cy="22" r="16" fill="#E3E7E2"/>
+              <rect x="38" y="42" width="54" height="74" rx="16" fill="#E3E7E2"/>
+              <rect x="18" y="46" width="15" height="64" rx="7" fill="#E3E7E2"/>
+              <rect x="97" y="46" width="15" height="64" rx="7" fill="#E3E7E2"/>
+              <rect x="42" y="112" width="21" height="88" rx="9" fill="#E3E7E2"/>
+              <rect x="67" y="112" width="21" height="88" rx="9" fill="#E3E7E2"/>
+              <g id="aZonesSvg"></g>
+            </svg>
+            <div class="zlist">
+              <b id="aZoneTitle">Zona</b>
+              <div class="small">Toca una zona y cuenta las lesiones.</div>
+              <div id="aZoneSummary" class="zlist" style="margin-top:6px"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="t" id="aLesTitle">Lesiones</div>
+            <div id="aLesions"></div>
+          </div>
+
+          <div class="card" style="display:flex;flex-direction:column;gap:8px">
+            <label for="aPain" style="display:flex;justify-content:space-between;font-weight:600">Dolor <span class="mono" id="aPainV">6/10</span></label>
+            <input id="aPain" type="range" min="0" max="10" value="6">
+            <div style="font-weight:600;margin-top:6px">Posibles desencadenantes</div>
+            <div class="chips" id="aTrigs"></div>
+            <label for="aNote" style="font-weight:600;margin-top:6px">Nota para el médico (opcional)</label>
+            <textarea id="aNote" placeholder="¿Cómo te has encontrado hoy?"></textarea>
+          </div>
+
+          <button class="btn sec" id="aPhoto">Foto guiada de las zonas</button>
+          <button class="btn pri" id="aSave">Guardar registro</button>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card">
+          <div class="t">Qué hace esta pantalla</div>
+          <ol>
+            <li>La paciente marca cada lesión por zona y tipo. El IHS4 se calcula solo: <span class="mono">nódulos + 2×abscesos + 4×túneles</span>.</li>
+            <li>Registra dolor y desencadenantes (roce, ciclo, calor…), algo que hoy nadie recoge entre visitas.</li>
+            <li>Al guardar, el registro pasa al historial del dermatólogo y alimenta el modelo de riesgo.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <div class="t">Gravedad IHS4</div>
+          <div style="font-size:14px">≤ 3 leve · 4–10 moderada · ≥ 11 grave</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="a2">
+    <div class="grid" style="gap:16px">
+      <div class="sub">Paciente HS-0142 · 34 años · Hurley II · IMC 31 · <span id="aSmokerTxt">fumadora</span></div>
+      <div class="grid kpis" id="aKpis"></div>
+      <div class="row">
+        <div class="card" style="flex:999 1 520px;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px">
+            <div class="t" style="margin:0">IHS4 por registro</div>
+            <div class="small">Naranja = brote (IHS4 ≥ 11)</div>
+          </div>
+          <svg id="aChart" viewBox="0 0 640 240" style="width:100%;height:auto;margin-top:10px" role="img" aria-label="Evolución del IHS4"></svg>
+        </div>
+        <div class="card" style="flex:1 1 300px;min-width:0">
+          <div class="t">Analítica <span class="small">(editable)</span></div>
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr><th>Parámetro</th><th>Valor</th><th>Ref.</th></tr></thead>
+              <tbody id="aLabs"></tbody>
+            </table>
+          </div>
+          <div class="small" style="margin-top:8px">Cambia la PCR y mira cómo se mueve el riesgo en la pestaña 3.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card" style="flex:1 1 360px;min-width:0">
+          <div class="t">Lesiones actuales por zona</div>
+          <div id="aZbars"></div>
+        </div>
+        <div class="card" style="flex:1 1 360px;min-width:0">
+          <div class="t">Notas de la paciente</div>
+          <div class="notes" id="aNotes"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="a3">
+    <div class="grid" style="gap:16px">
+      <div class="row">
+        <div class="riskcard">
+          <div style="font-size:13px;color:#B8C4BF">Riesgo de brote en los próximos 14 días</div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span class="v" id="aRisk">0%</span>
+            <span id="aRiskLbl" style="font-weight:600;font-size:16px"></span>
+          </div>
+          <div class="rbar"><i id="aRiskBar"></i></div>
+          <div id="aRiskAdvice" style="font-size:14px;color:#D7DEDB"></div>
+        </div>
+        <div class="card" style="flex:999 1 480px;min-width:0">
+          <div class="t">Qué empuja la predicción</div>
+          <div id="aFactors"></div>
+          <div class="small" style="margin-top:6px">Puntos que suma cada variable (riesgo con ella menos riesgo sin ella).</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="t">¿Y si…? <span class="small">(simulación)</span></div>
+        <div class="whatif">
+          <div>
+            <label for="aWPcr" style="display:flex;justify-content:space-between;font-size:14px">PCR <span class="mono" id="aWPcrV"></span></label>
+            <input id="aWPcr" type="range" min="0" max="60" step="1">
+          </div>
+          <div>
+            <label for="aWPain" style="display:flex;justify-content:space-between;font-size:14px">Dolor <span class="mono" id="aWPainV"></span></label>
+            <input id="aWPain" type="range" min="0" max="10" step="1">
+          </div>
+          <label class="toggle"><input type="checkbox" id="aWSmoke"> Fumadora activa</label>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
+          <div class="t" style="margin:0">Perfil según dónde están las lesiones</div>
+          <div class="small">Cohorte inventada de 200 pacientes</div>
+        </div>
+        <div class="grid clusters" id="aClusters" style="margin-top:12px"></div>
+      </div>
+      <div class="small" style="font-size:13px">Modelo de juguete con pesos inventados. Con datos reales: regresión logística o random forest (Python, scikit-learn) y validación clínica.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- ===================== RETO C · CÁNCER INFANTIL ====================== -->
+<!-- ===================================================================== -->
+<section class="view" id="vC">
+  <header class="h">
+    <div>
+      <div class="sub">Reto Care Journey · AFANOC</div>
+      <h1>Mi camino</h1>
+    </div>
+    <span class="badge">Prototipo · datos inventados</span>
+  </header>
+  <p class="flow">El niño o adolescente lleva su rutina y cómo se encuentra. La familia reparte tareas y recibe un resumen preparado para la visita. El objetivo es menos carga mental para todos.</p>
+
+  <div class="phone-area">
+    <div class="phone">
+      <div class="phone-inner">
+        <div>
+          <div class="small">Hola, Martina</div>
+          <div style="font-size:21px;font-weight:700">Tu día</div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;gap:8px">
+          <div class="t" style="margin:0">¿Cómo te encuentras?</div>
+          <div class="chips" id="cEnergy"></div>
+          <label for="cTemp" style="display:flex;justify-content:space-between;font-weight:600;margin-top:6px">Temperatura <span class="mono" id="cTempV"></span></label>
+          <input id="cTemp" type="range" min="35.5" max="40" step="0.1" value="36.8">
+          <div id="cFever" style="display:none;background:#FDECEC;color:#8E1414;border-radius:10px;padding:12px;font-weight:600;font-size:14px">Tienes fiebre. Avisa ahora a un adulto: hay que llamar al hospital de día.</div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <div class="t" style="margin:0">Hoy</div><span class="small" id="cProgT"></span>
+          </div>
+          <div class="bar" style="margin:8px 0 6px"><i id="cProg"></i></div>
+          <div id="cTasks"></div>
+        </div>
+        <div class="card" style="display:flex;flex-direction:column;gap:8px">
+          <label for="cQ" class="t" style="margin:0">Una pregunta para el médico</label>
+          <div style="display:flex;gap:8px">
+            <input id="cQ" type="text" placeholder="Escríbela aquí" style="flex:1;min-height:44px">
+            <button class="btn pri" id="cAddQ" style="min-height:44px">Añadir</button>
+          </div>
+          <ul id="cQs" style="margin:0;padding-left:18px;font-size:14px"></ul>
+        </div>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card">
+        <div class="t">Familia · quién se encarga de qué</div>
+        <div id="cFam"></div>
+      </div>
+      <div class="card">
+        <div class="t">Carga por persona</div>
+        <div id="cLoad"></div>
+      </div>
+      <div class="card">
+        <div class="t">Energía de la semana</div>
+        <div id="cWeek" style="display:flex;align-items:flex-end;gap:8px;height:150px"></div>
+      </div>
+      <div class="card">
+        <div class="t">Resumen automático para la visita</div>
+        <ul id="cSummary"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Prototipo para el Innovation Challenge de Xartec Salut · Enrique Rivas · No es un producto sanitario</footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
