@@ -15,7 +15,8 @@
 <nav class="top" aria-label="Secciones">
   <div class="top-in" role="tablist">
     <button role="tab" aria-selected="true" data-v="vHome">Inicio</button>
-    <button role="tab" aria-selected="false" data-v="vB">EPOC · IDIAP</button>
+    <button role="tab" aria-selected="false" data-v="vE">Alè · llamada IA</button>
+    <button role="tab" aria-selected="false" data-v="vB">EPOC · app</button>
     <button role="tab" aria-selected="false" data-v="vA">Hidradenitis · Almirall</button>
     <button role="tab" aria-selected="false" data-v="vC">Cáncer infantil · AFANOC</button>
   </div>
@@ -29,17 +30,33 @@
 <section class="view on" id="vHome">
   <div class="hero">
     <div class="small" style="color:#B8C4BF">Innovation Challenge · Xartec Salut · HealthTech2030</div>
-    <h1>Tres ideas para tres retos de salud</h1>
+    <h1>Una idea principal y tres retos de salud</h1>
     <p>Prototipos para enseñar la idea, no productos terminados. Todo funciona en el navegador, en ordenador y en móvil, y no se guarda ni se envía ningún dato. Los datos que ves son inventados.</p>
   </div>
 
-  <h2 style="margin-top:24px">Elige un reto</h2>
+  <h2 style="margin-top:24px">La idea principal</h2>
+  <div class="card ale-hero">
+    <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:8px">
+      <span class="tag" style="font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em">IDIAP Jordi Gol · Early Detection · EPOC</span>
+      <b style="font-size:24px">Alè: una IA que llama al paciente y le escucha respirar</b>
+      <div style="font-size:15px">Cada mañana, una voz llama al paciente con EPOC y habla con él un minuto. Sin app y sin pantallas. Mientras habla, analiza su voz, cuánto aguanta un «aaaa», las pausas para respirar y la tos, y lo compara con <b>su propia voz de los días normales</b>. Si algo cambia, avisa al centro de salud para hacer una PCR capilar.</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+        <button class="go" data-goto="vE" style="min-height:48px;padding:0 22px;border-radius:12px;border:none;background:var(--brand);color:#fff;font-weight:600">Probar la llamada</button>
+      </div>
+    </div>
+    <div class="ale-mini" aria-hidden="true">
+      <div class="ale-ring"><span></span></div>
+      <div style="font-weight:700">Alè</div>
+      <div class="small" style="color:#B8C4BF">Llamada del centro de salud</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px">Otros prototipos</h2>
   <div class="grid cards3">
-    <div class="card rcard reco">
+    <div class="card rcard">
       <span class="tag">IDIAP Jordi Gol · Early Detection</span>
-      <b>Exacerbaciones de la EPOC</b>
-      <div style="font-size:14px">Detectar antes las crisis bacterianas combinando síntomas, saturación, tos grabada con el móvil y foto del esputo. El CAP recibe un aviso y confirma con una PCR capilar.</div>
-      <span class="badge" style="background:var(--brand-soft);color:#0A4D42;align-self:flex-start">Opción recomendada</span>
+      <b>EPOC: control diario en app</b>
+      <div style="font-size:14px">Versión con app: síntomas, saturación, tos grabada y foto del esputo. Complementa a Alè para pacientes que prefieren el móvil.</div>
       <button class="go" data-goto="vB">Probar</button>
     </div>
     <div class="card rcard">
@@ -66,6 +83,109 @@
 
   <div class="note-box" style="margin-top:16px">
     <b>Importante.</b> Ninguna de estas pantallas es un producto sanitario ni da diagnósticos. Las reglas y los modelos son simplificaciones para explicar la idea.
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<!-- ===================== IDEA PRINCIPAL · ALÈ ========================== -->
+<!-- ===================================================================== -->
+<section class="view" id="vE">
+  <header class="h">
+    <div>
+      <div class="sub">Reto Early Detection · IDIAP Jordi Gol · idea principal</div>
+      <h1>Alè · la llamada que escucha cómo respiras</h1>
+    </div>
+    <span class="badge">Prototipo · análisis de voz real, umbrales inventados</span>
+  </header>
+  <p class="flow">Pulsa <b>Contestar</b>. Alè te hará unas preguntas en voz alta y analizará tu voz con el micrófono. Para ver una alerta en directo: haz una primera llamada marcando «Guardar como mi voz normal» y luego repite la llamada haciendo un «aaaa» corto, con pausas y tosiendo. Si no tienes micrófono, usa los modos de demostración.</p>
+
+  <div class="card ale-controls">
+    <div>
+      <div class="small" style="margin-bottom:6px">Modo</div>
+      <div class="chips" id="eMode">
+        <button class="chip" aria-pressed="true" data-m="mic">Micrófono real</button>
+        <button class="chip" aria-pressed="false" data-m="normal">Demo: día normal</button>
+        <button class="chip" aria-pressed="false" data-m="crisis">Demo: día de crisis</button>
+      </div>
+    </div>
+    <div>
+      <div class="small" style="margin-bottom:6px">Idioma de la llamada</div>
+      <div class="chips" id="eLang">
+        <button class="chip" aria-pressed="true" data-l="es">Castellano</button>
+        <button class="chip" aria-pressed="false" data-l="ca">Català</button>
+      </div>
+    </div>
+    <label class="toggle"><input type="checkbox" id="eCalib"> Guardar esta llamada como mi voz normal</label>
+  </div>
+
+  <div class="phone-area" style="margin-top:16px">
+    <div class="phone">
+      <div class="phone-inner call">
+        <div class="call-top">
+          <div class="ale-ring" id="eRing"><span></span></div>
+          <div style="font-size:22px;font-weight:700;color:#fff">Alè</div>
+          <div id="eStatus" style="color:#B8C4BF;font-size:14px">Llamada entrante · Centro de salud</div>
+          <div id="eTimer" class="mono" style="color:#B8C4BF;font-size:13px"></div>
+        </div>
+        <div id="ePhrase" class="phrase" style="display:none"></div>
+        <div class="transcript" id="eChat" aria-live="polite"></div>
+        <div id="eYesNo" class="yesno" style="display:none">
+          <button class="btn sec" data-a="no">No</button>
+          <button class="btn pri" data-a="yes">Sí</button>
+        </div>
+        <div class="call-btns">
+          <button class="callbtn hang" id="eHang" aria-label="Colgar">Colgar</button>
+          <button class="callbtn answer" id="eAnswer" aria-label="Contestar">Contestar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="side">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap">
+          <div class="t" style="margin:0">Análisis en directo</div>
+          <div class="small" id="eStep">Esperando llamada</div>
+        </div>
+        <canvas id="eWave" width="800" height="120" aria-label="Señal de voz y tono"></canvas>
+        <div class="small" style="margin-top:4px">Verde: volumen de la voz · Naranja: tono (Hz)</div>
+      </div>
+
+      <div class="card">
+        <div class="t">Hoy frente a tu voz normal</div>
+        <div style="overflow-x:auto">
+          <table class="mtab">
+            <thead><tr><th>Medida</th><th>Hoy</th><th>Normal</th><th style="width:34%">Desviación</th></tr></thead>
+            <tbody id="eMetrics"></tbody>
+          </table>
+        </div>
+        <div class="small" id="eBaseInfo" style="margin-top:6px"></div>
+      </div>
+
+      <div class="row">
+        <div class="riskcard" style="flex:1 1 240px">
+          <div style="font-size:13px;color:#B8C4BF">Índice de cambio respecto a lo normal</div>
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span class="v" id="eIdx">—</span>
+            <span id="eLvl" style="font-weight:600;font-size:16px"></span>
+          </div>
+          <div class="rbar"><i id="eIdxBar"></i></div>
+          <div id="eIdxTxt" style="font-size:14px;color:#D7DEDB">Haz una llamada para calcularlo.</div>
+        </div>
+        <div class="card" style="flex:1 1 300px;min-width:0">
+          <div class="t">Últimos 14 días</div>
+          <svg id="eHist" viewBox="0 0 420 150" style="width:100%;height:auto" role="img" aria-label="Índice de los últimos días"></svg>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="t">Panel del centro de salud</div>
+        <div id="eCap"></div>
+      </div>
+
+      <div class="note-box">
+        <b>En qué se basa.</b> Un piloto de la Universidad de Maastricht (ERS 2024, 28 pacientes) vio que, el primer día de una exacerbación, la voz grabada con el móvil se vuelve más aguda y más irregular. Alè compara a cada paciente consigo mismo, así que no necesita un gran banco de datos para empezar. La evidencia aún es preliminar.
+      </div>
+    </div>
   </div>
 </section>
 
@@ -393,5 +513,6 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script src="app.js"></script>
+<script src="ale.js"></script>
 </body>
 </html>

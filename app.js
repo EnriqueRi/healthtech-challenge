@@ -609,4 +609,4 @@ renderC();
 drawWave([], 0);
 // Si la URL trae una sección (#vB…), la abrimos directamente
 const startView = location.hash.slice(1);
-if (['vHome', 'vA', 'vB', 'vC'].includes(startView)) showView(startView);
+if (['vHome', 'vE', 'vA', 'vB', 'vC'].includes(startView)) showView(startView);
